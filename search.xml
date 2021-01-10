@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>echarts 自定义y轴(不均匀刻度)</title>
+    <url>/2020/05/14/echarts-%E8%87%AA%E5%AE%9A%E4%B9%89y%E8%BD%B4/</url>
+    <content><![CDATA[<h2 id="Demand"><a href="#Demand" class="headerlink" title="Demand"></a>Demand</h2><p>不均匀刻度的数值 实现在 y 轴固定区间的数值展示;<br>(例如: 初始数据有 0-10000 的数值, 需要 y 轴集中展示 0-1000 的数据)</p>
+<a id="more"></a>
+
+<h2 id="Implete"><a href="#Implete" class="headerlink" title="Implete"></a>Implete</h2><p>思路: 将初始数据 0-1000 的放大 n 倍数, 大于 1000 的缩小 n 倍</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">formatData</span>(<span class="params">arr, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> newHashArray = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line">    <span class="keyword">const</span> temp = arr[i];</span><br><span class="line">    <span class="keyword">if</span> (arr[i] &gt; <span class="number">0</span> &amp;&amp; arr[i] &lt;= <span class="number">1000</span>) &#123;</span><br><span class="line">      arr[i] = arr[i] * n &lt; <span class="number">1000</span> ? arr[i] : arr[i] * n;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[i] &gt; <span class="number">1000</span> &amp;&amp; arr[i] &lt;= <span class="number">1000</span> * n) &#123;</span><br><span class="line">      arr[i] = <span class="number">1000</span> * n + arr[i] / <span class="number">15</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    obj.value = arr[i];</span><br><span class="line">    obj.formatV = temp;</span><br><span class="line">    newHashArray.push(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> newHashArray;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应的 yAxis axisLabel 配置</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">formatter: <span class="function">(<span class="params">v</span>) =&gt;</span> &#123;</span><br><span class="line">              <span class="keyword">let</span> item = <span class="string">''</span>;</span><br><span class="line">              <span class="keyword">if</span> (v &gt; <span class="number">1000</span>) &#123;</span><br><span class="line">                item = <span class="built_in">Math</span>.floor(v / <span class="number">15</span>) &lt;= <span class="number">1000</span> ? <span class="built_in">Math</span>.floor(v / <span class="number">15</span>) : v;</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                item = v;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">return</span> item;</span><br><span class="line">            &#125;,</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Expand</category>
+      </categories>
+      <tags>
+        <tag>echart</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/12/29/hello-world/</url>
+    <content><![CDATA[<blockquote>
+<p>Welcome to my first blog!</p>
+</blockquote>
+<h2 id="Describe"><a href="#Describe" class="headerlink" title="Describe"></a>Describe</h2><p>Based on  <a href="https://hexo.io/" target="_blank" rel="noopener"><font color="#ff0000">Hexo</font></a></font> and <a href="https://github.com/theme-next" target="_blank" rel="noopener"><font color="#ff0000">Next</font></a>!</p>
+<a id="more"></a>
+
+<h2 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h2 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h2 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h2 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>Document</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>react</title>
+    <url>/2020/05/10/react/</url>
+    <content><![CDATA[<h2 id="什么是-React"><a href="#什么是-React" class="headerlink" title="什么是 React"></a>什么是 React</h2><p>React 是 Facebook 开发的一款 JS UI 库，用于构建高效、快速的用户界面。它是一个轻量级库，因此很受欢迎。它遵循组件设计模式、声明式编程范式和函数式编程概念，以使前端应用程序更高效。它使用虚拟 DOM 来有效地操作 DOM。它遵循从高阶组件到低阶组件的单向数据流。</p>
+<a id="more"></a>
+
+<h2 id="主要原理-Virtual-DOM"><a href="#主要原理-Virtual-DOM" class="headerlink" title="主要原理 Virtual DOM"></a>主要原理 Virtual DOM</h2><p>传统的 web 应用，操作 DOM 一般是直接更新操作的，但是我们知道 DOM 更新通常是比较昂贵的。而 React 为了尽可能减少对 DOM 的操作，提供了一种不同的而又强大的方式来更新 DOM，代替直接的 DOM 操作。就是 Virtual DOM,一个轻量级的虚拟的 DOM，就是 React 抽象出来的一个对象，描述 dom 应该什么样子的，应该如何呈现。通过这个 Virtual DOM 去更新真实的 DOM，由这个 Virtual DOM 管理真实 DOM 的更新。</p>
+<h2 id="什么是-JSX"><a href="#什么是-JSX" class="headerlink" title="什么是 JSX"></a>什么是 JSX</h2><p>JSX 是 javascript 的语法扩展。它就像一个拥有 javascript 全部功能的模板语言。它生成 React 元素，这些元素将在 DOM 中呈现。<br>例:</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">"World"</span>;</span><br><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;React.StrictMode&gt;element,&lt;<span class="regexp">/React.StrictMode&gt;,</span></span><br><span class="line"><span class="regexp">  document.getElementById("root") /</span><span class="regexp">/ "Hello, World"</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><blockquote>
+<p>类似 vue 生命周期(大体分三类 Mount, Update, Unmount), 不多阐述, 直接上图</p>
+</blockquote>
+<p><img src="/img/react-life.jpg" alt=""></p>
+<h2 id="组件的-State-与-Props"><a href="#组件的-State-与-Props" class="headerlink" title="组件的 State 与 Props"></a>组件的 State 与 Props</h2><h3 id="渲染组件"><a href="#渲染组件" class="headerlink" title="渲染组件"></a>渲染组件</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">function Welcome(props) &#123; return</span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">; &#125; const element = <span class="tag">&lt;<span class="name">Welcome</span> <span class="attr">name</span>=<span class="string">"Sara"</span> /&gt;</span>; ReactDOM.render( element,s</span><br><span class="line">document.getElementById('root') );</span><br></pre></td></tr></table></figure>
+
+<p>如上, Welcome 就是用户自定义组件, 对象 name 就称之为”props”。</p>
+<h3 id="state-及状态改变"><a href="#state-及状态改变" class="headerlink" title="state 及状态改变"></a>state 及状态改变</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">class Clock extends React.Component &#123; constructor(props) &#123; super(props); // 继承父类的this对象</span><br><span class="line">this.state = &#123;date: new Date()&#125;; &#125; render() &#123; return (</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>It is &#123; this.state.date.toLocaleTimeString() &#125;.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#125; &#125; &#125; ReactDOM.render(</span><br><span class="line"><span class="tag">&lt;<span class="name">Clock</span> /&gt;</span>, document.getElementById('root') );</span><br></pre></td></tr></table></figure>
+
+<p>正确使用 state</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">// Wrong this.state.comment = 'Hello'; // Correct this.setState(&#123;comment: 'Hello'&#125;); // Wrong</span><br><span class="line">this.setState(&#123; counter: this.state.counter + this.props.increment, &#125;); // Correct</span><br><span class="line">this.setState((state, props) =&gt; (&#123; counter: state.counter + props.increment &#125;));</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>React</category>
+      </categories>
+      <tags>
+        <tag>react</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sass(scss) &amp;&amp; less</title>
+    <url>/2020/05/11/sass-scss-%E4%B8%8E-less/</url>
+    <content><![CDATA[<h2 id="Describe"><a href="#Describe" class="headerlink" title="Describe"></a>Describe</h2><blockquote>
+<p>都属于动态样式语言，可以使用变量、嵌套、运算,混入(Mixin)、继承、颜色处理，函数等， 更易修改及对应的扩展。</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="sass"><a href="#sass" class="headerlink" title="sass"></a>sass</h3><p><a href="https://sass-lang.com" target="_blank" rel="noopener"><font color="#ff0000">Sass</font></a> has a word below! emm…</p>
+<blockquote>
+<p><code>Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.</code></p>
+</blockquote>
+<h3 id="less"><a href="#less" class="headerlink" title="less"></a>less</h3><p><a href="http://lesscss.org/" target="_blank" rel="noopener"><font color="#ff0000">less</font></a> in contrast!</p>
+<blockquote>
+<p><code>It&#39;s CSS, with just a little more.</code></p>
+</blockquote>
+<h3 id="scss"><a href="#scss" class="headerlink" title="scss"></a>scss</h3><p>scss 可以理解为是 sass 的扩展, 用{}取代了缩进</p>
+<p>例子：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">// css</span><br><span class="line"><span class="selector-tag">nav</span> <span class="selector-tag">ul</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">list-style</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span> <span class="selector-tag">li</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">6px</span> <span class="number">12px</span>;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// sass</span><br><span class="line"><span class="selector-tag">nav</span></span><br><span class="line">  <span class="selector-tag">ul</span></span><br><span class="line">    <span class="selector-tag">margin</span>: 0</span><br><span class="line">    <span class="selector-tag">padding</span>: 0</span><br><span class="line">    <span class="selector-tag">list-style</span>: <span class="selector-tag">none</span></span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">li</span></span><br><span class="line">    <span class="selector-tag">display</span>: <span class="selector-tag">inline-block</span></span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">a</span></span><br><span class="line">    <span class="selector-tag">display</span>: <span class="selector-tag">block</span></span><br><span class="line">    <span class="selector-tag">padding</span>: 6<span class="selector-tag">px</span> 12<span class="selector-tag">px</span></span><br><span class="line">    <span class="selector-tag">text-decoration</span>: <span class="selector-tag">none</span></span><br><span class="line"></span><br><span class="line">// scss</span><br><span class="line"><span class="selector-tag">nav</span> &#123;</span><br><span class="line">  ul &#123;</span><br><span class="line">    <span class="selector-tag">margin</span>: 0;</span><br><span class="line">    <span class="selector-tag">padding</span>: 0;</span><br><span class="line">    <span class="selector-tag">list-style</span>: <span class="selector-tag">none</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">6px</span> <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Less-amp-amp-Sass"><a href="#Less-amp-amp-Sass" class="headerlink" title="Less &amp;&amp; Sass"></a>Less &amp;&amp; Sass</h2><blockquote>
+<p>两者主要区别</p>
+</blockquote>
+<ol>
+<li>编译环境</li>
+</ol>
+<ul>
+<li>Less 是基于 JavaScript，在客户端处理</li>
+<li>Sass 是基于 Ruby 的，在服务器端处理</li>
+</ul>
+<ol start="2">
+<li>变量符</li>
+</ol>
+<ul>
+<li>Less 用 @</li>
+<li>Sass 用 $</li>
+</ul>
+<ol start="3">
+<li>输出设置</li>
+</ol>
+<ul>
+<li>Less 没有输出设置</li>
+<li>Sass 提供 4 中输出选项：默认为 nested<ul>
+<li>nested：嵌套缩进的 css 代码</li>
+<li>expanded：展开的多行 css 代码</li>
+<li>compact：简洁格式的 css 代码</li>
+<li>compressed：压缩后的 css 代码</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>条件语句</li>
+</ol>
+<ul>
+<li>Less 不支持</li>
+<li>Sass 支持，可以使用 if{}else{},for{}循环等</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Css</category>
+      </categories>
+      <tags>
+        <tag>sass</tag>
+        <tag>scss</tag>
+        <tag>less</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2020总结</title>
+    <url>/2020/12/31/2020%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2020年注定是我们难以忘却的一年。</p>
+<a id="more"></a>
+<h2 id="2020收获"><a href="#2020收获" class="headerlink" title="2020收获"></a>2020收获</h2><ul>
+<li>学习了flutter</li>
+<li>全新认识了webpack</li>
+<li>linux及docker基操</li>
+<li>学习了react hook</li>
+<li>搭建了npm私有仓库</li>
+<li>构建了前端项目脚手架</li>
+<li>python简单爬取静态网页</li>
+<li>学习了vue3（composition api）(真香)</li>
+<li>逐步完善ts</li>
+</ul>
+<h2 id="2021计划"><a href="#2021计划" class="headerlink" title="2021计划"></a>2021计划</h2><ul>
+<li>完善组件库</li>
+<li>源码阅读</li>
+<li>算法</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Summary</category>
+      </categories>
+      <tags>
+        <tag>2020</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue3(vite基础配置)</title>
+    <url>/2020/12/23/%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="初始化-vite"><a href="#初始化-vite" class="headerlink" title="初始化 vite"></a>初始化 <a href="https://github.com/vitejs/vite" target="_blank" rel="noopener">vite</a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ yarn create vite-app &lt;project-name&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;project-name&gt;</span><br><span class="line">$ yarn</span><br><span class="line">$ yarn dev</span><br></pre></td></tr></table></figure>
+
+<h2 id="开发-生产环境-配置"><a href="#开发-生产环境-配置" class="headerlink" title="开发/生产环境 配置"></a>开发/生产环境 配置</h2><blockquote>
+<p>变量前缀 prefix = ‘VITE_‘;</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#.env</span></span><br><span class="line">VITE_APP_TITLE = vite-app</span><br><span class="line">VITE_PORT = 3000</span><br><span class="line">VITE_OUT_DIR = dist</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#.env.development</span></span><br><span class="line">VITE_APP_URL = /developmentAPI</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#.env.production</span></span><br><span class="line">VITE_APP_URL = /productionAPI</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>当尝试在项目中获取所有环境变量时，只能拿到 process.env.NODE_ENV 值，尝试在配置文件中赋值变量：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"># vite.config.ts</span><br><span class="line"><span class="keyword">import</span> dotenv <span class="keyword">from</span> <span class="string">'dotenv'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> env = process.env.NODE_ENV;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'env: '</span>, env); <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">const</span> envFiles = [<span class="string">'.env'</span>, <span class="string">`.env.<span class="subst">$&#123;env&#125;</span>`</span>, <span class="string">`.env.<span class="subst">$&#123;env&#125;</span>.local`</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> file of envFiles) &#123;</span><br><span class="line">  <span class="keyword">const</span> envConfig = dotenv.parse(fs.readFileSync(file))</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> k <span class="keyword">in</span> envConfig) &#123;</span><br><span class="line">    process.env[k] = envConfig[k]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考<a href="https://github.com/vitejs/vite/issues/1096" target="_blank" rel="noopener">issue#1096</a>,最终配置如下：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"># vite.config.ts</span><br><span class="line"><span class="keyword">import</span> &#123; loadEnv &#125; <span class="keyword">from</span> <span class="string">'vite'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123; UserConfig &#125; <span class="keyword">from</span> <span class="string">'vite'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> root: <span class="built_in">string</span> = process.cwd();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (mode: <span class="string">'development'</span> | <span class="string">'production'</span>): <span class="function"><span class="params">UserConfig</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> env = loadEnv(mode, root);</span><br><span class="line">  <span class="keyword">const</span> &#123; VITE_OUT_DIR, VITE_PORT &#125; = env</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    root,</span><br><span class="line">    outDir: VITE_OUT_DIR,</span><br><span class="line">    port: <span class="built_in">Number</span>(VITE_PORT),</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>在项目主入口则用”import.meta.env”获取全局变量</strong></p>
+<h2 id="标题栏配置-参照vite-plugin-html"><a href="#标题栏配置-参照vite-plugin-html" class="headerlink" title="标题栏配置 参照vite-plugin-html"></a>标题栏配置 参照<a href="https://github.com/anncwb/vite-plugin-html" target="_blank" rel="noopener">vite-plugin-html</a></h2><h2 id="ant-design-vue及-less-配置"><a href="#ant-design-vue及-less-配置" class="headerlink" title="ant-design-vue及 less 配置"></a><a href="https://2x.antdv.com/docs/vue/introduce-cn/" target="_blank" rel="noopener">ant-design-vue</a>及 less 配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn add less less-loader -D</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># vite.config.ts</span><br><span class="line"><span class="keyword">import</span> &#123; modifyVars &#125; <span class="keyword">from</span> <span class="string">'your-theme-file.ts'</span>; <span class="comment">//导入个性化变量</span></span><br><span class="line"></span><br><span class="line">cssPreprocessOptions: &#123;</span><br><span class="line">  less: &#123;</span><br><span class="line">     modifyVars,</span><br><span class="line">     javascriptEnabled: <span class="literal">true</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="按需导入"><a href="#按需导入" class="headerlink" title="按需导入"></a>按需导入</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Button <span class="keyword">from</span> <span class="string">"ant-design-vue/lib/button"</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">"ant-design-vue/lib/button/style"</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用 babel-plugin-import</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">"ant-design-vue"</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="tip"><a href="#tip" class="headerlink" title="tip"></a>tip</h3><p>嵌套组件需要单独声明，以 Breadcrumb 组件为例, 查看其源码可知:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ant-design-vue/lib/breadcrumb/index.js</span></span><br><span class="line">_Breadcrumb.default.install = <span class="function"><span class="keyword">function</span> (<span class="params">app</span>) </span>&#123;</span><br><span class="line">  app.component(_Breadcrumb.default.name, _Breadcrumb.default);</span><br><span class="line">  app.component(_BreadcrumbItem.default.name, _BreadcrumbItem.default);</span><br><span class="line">  app.component(_BreadcrumbSeparator.default.name, _BreadcrumbSeparator.default);</span><br><span class="line">  <span class="keyword">return</span> app;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;a-breadcrumb&gt;</span><br><span class="line">    &lt;a-breadcrumb-item v-for&#x3D;&quot;(item, index) in crumbList&quot; :key&#x3D;&quot;index&quot;&gt;</span><br><span class="line">      &#123;&#123; item.name &#125;&#125;</span><br><span class="line">    &lt;&#x2F;a-breadcrumb-item&gt;</span><br><span class="line">  &lt;&#x2F;a-breadcrumb&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">import &#123; defineComponent, ref, watch &#125; from &quot;vue&quot;;</span><br><span class="line">import &#123; Breadcrumb &#125; from &quot;ant-design-vue&quot;;</span><br><span class="line">import &#123; useRouter &#125; from &quot;vue-router&quot;;</span><br><span class="line"></span><br><span class="line">export default defineComponent(&#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    [Breadcrumb.name]: Breadcrumb,</span><br><span class="line">    [Breadcrumb.Item.name]: Breadcrumb.Item,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  setup() &#123;</span><br><span class="line">    const crumbList &#x3D; ref([]);</span><br><span class="line">    const router &#x3D; useRouter();</span><br><span class="line"></span><br><span class="line">    watch(router.currentRoute, (val) &#x3D;&gt; &#123;</span><br><span class="line">      crumbList.value &#x3D; val.matched;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      crumbList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="typescript-配置"><a href="#typescript-配置" class="headerlink" title="typescript 配置"></a>typescript 配置</h2><p>根目录创建 typescript 的配置文件 tsconfig.json</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"target"</span>: <span class="string">"esnext"</span>,</span><br><span class="line">    <span class="attr">"module"</span>: <span class="string">"esnext"</span>,</span><br><span class="line">    <span class="attr">"strict"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"jsx"</span>: <span class="string">"react"</span>,</span><br><span class="line">    <span class="attr">"importHelpers"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"moduleResolution"</span>: <span class="string">"node"</span>,</span><br><span class="line">    <span class="attr">"experimentalDecorators"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"esModuleInterop"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"allowSyntheticDefaultImports"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"baseUrl"</span>: <span class="string">"."</span>,</span><br><span class="line">    <span class="attr">"paths"</span>: &#123;</span><br><span class="line">      <span class="attr">"/@/*"</span>: [<span class="string">"src/*"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"include"</span>: [</span><br><span class="line">    <span class="string">"src/**/*.ts"</span>,</span><br><span class="line">    <span class="string">"src/**/*.tsx"</span>,</span><br><span class="line">    <span class="string">"src/**/*.vue"</span>,</span><br><span class="line">    <span class="string">"src/mock/table.ts"</span>,</span><br><span class="line">    <span class="string">"src/router/index.ts"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"exclude"</span>: [<span class="string">"node_modules"</span>, <span class="string">"dist"</span>, <span class="string">"**/*.js"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="优化-ts-类型判断"><a href="#优化-ts-类型判断" class="headerlink" title="优化 ts 类型判断"></a>优化 ts 类型判断</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// shims.d.ts</span></span><br><span class="line">declare <span class="built_in">module</span> <span class="string">"*.vue"</span> &#123;</span><br><span class="line">  <span class="keyword">import</span> &#123; defineComponent &#125; <span class="keyword">from</span> <span class="string">"vue"</span>;</span><br><span class="line">  <span class="keyword">const</span> component: ReturnType&lt;<span class="keyword">typeof</span> defineComponent&gt;;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> component;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vue-router、vuex-配置"><a href="#vue-router、vuex-配置" class="headerlink" title="vue-router、vuex 配置"></a>vue-router、vuex 配置</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">yarn add vue-router@next vuex@next -S</span><br></pre></td></tr></table></figure>
+
+<h2 id="eslint-配置"><a href="#eslint-配置" class="headerlink" title="eslint 配置"></a>eslint 配置</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">yarn add eslint eslint-config-airbnb-base eslint-plugin-<span class="keyword">import</span> eslint-plugin-vue -D</span><br></pre></td></tr></table></figure>
+
+<h2 id="echarts-配置"><a href="#echarts-配置" class="headerlink" title="echarts 配置"></a>echarts 配置</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">yarn add echarts -S</span><br><span class="line">yarn add @types/echarts -D</span><br></pre></td></tr></table></figure>
+
+<p>一开始使用的 echarts 版本 5.0.0 但导入后报如下错误<br><img src="/img/20201225/echart5.0.0-log.png" alt=""></p>
+<p>以及删除了之前内置地图资源包 详见<a href="https://github.com/apache/incubator-echarts/releases/tag/5.0.0" target="_blank" rel="noopener">github</a></p>
+<p>回退版本 4.0 可正常使用, 附上代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div ref&#x3D;&quot;chartRef&quot; :style&#x3D;&quot;&#123; height, width &#125;&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">import &#123; defineComponent, ref, unref, onMounted, onUnmounted &#125; from &quot;vue&quot;;</span><br><span class="line">import echarts from &quot;echarts&quot;;</span><br><span class="line"></span><br><span class="line">import &quot;echarts&#x2F;map&#x2F;js&#x2F;china&quot;;</span><br><span class="line"></span><br><span class="line">export default defineComponent(&#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    width: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      default: &quot;100%&quot;,</span><br><span class="line">    &#125;,</span><br><span class="line">    height: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      default: &quot;100%&quot;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  setup() &#123;</span><br><span class="line">    const chartRef &#x3D; ref&lt;HTMLDivElement | null&gt;(null);</span><br><span class="line">    const option &#x3D; &#123;</span><br><span class="line">      series: [</span><br><span class="line">        &#123;</span><br><span class="line">          type: &quot;map&quot;,</span><br><span class="line">          map: &quot;china&quot;,</span><br><span class="line">        &#125;,</span><br><span class="line">      ],</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    onMounted(() &#x3D;&gt; &#123;</span><br><span class="line">      const chartInstance &#x3D; echarts.init(unref(chartRef));</span><br><span class="line">      chartInstance.setOption(option);</span><br><span class="line">      window.onresize &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">        chartInstance.resize();</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    onUnmounted(() &#x3D;&gt; &#123;</span><br><span class="line">      window.onresize &#x3D; null;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      chartRef,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>若出现依赖警告, 需把 echarts/map/js/china 加入 optimizeDeps 即可, 如下：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line">optimizeDeps: &#123;</span><br><span class="line">  include: [</span><br><span class="line">    <span class="string">'echarts'</span>,</span><br><span class="line">    <span class="string">'echarts/map/js/china'</span></span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>vue3</tag>
+        <tag>vite</tag>
+      </tags>
+  </entry>
+</search>
